@@ -52,7 +52,7 @@ def movefilestrue():
                 dirPath = os.path.join(pic, fExt) 
                 os.mkdir(dirPath)
                 shutil.move(r'C:\Users\Andrey\Desktop' + "\\\\" + file, pic + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
-        if fExt=='mpeg' or fExt=='mpg' or fExt=='avi' or fExt=='mkv':
+        if fExt=='mp4' or fExt=='mov' or fExt=='avi' or fExt=='mkv' or fExt=='ts' or fExt=='wmv':
             try:
                 shutil.move(r'C:\Users\Andrey\Desktop' + "\\\\" + file, vid + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
             except FileNotFoundError:
