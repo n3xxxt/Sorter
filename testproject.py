@@ -25,47 +25,47 @@ def moveFiles():
             os.mkdir(dirPath)
             shutil.move(lstmovefrom[k1-1] + "\\\\" + file, lstmoveto[k-1] + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
 def movefilestrue():
-    docs=(r"C:\Users\Andrey\Documents")
-    pic=(r"C:\Users\Andrey\Pictures")
-    vid=(r"C:\Users\Andrey\Videos")
+    docs=(f"{os.environ['USERPROFILE']}\\Documents")
+    pic=(f"{os.environ['USERPROFILE']}\\Pictures")
+    vid=(f"{os.environ['USERPROFILE']}\\Videos")
     
     for file in needToMove:
         fExt = file[file.rfind('.')+1:]
         if fExt=='py':
             try:
-                shutil.move(r'C:\Users\Andrey\Desktop' + "\\\\" + file, r'C:\Programming\Python' + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
+                shutil.move(f"{os.environ['USERPROFILE']}\\Desktop" + "\\\\" + file, r'C:\Programming\Python' + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
             except FileNotFoundError:
                 dirPath = os.path.join('C:\Programming\Python', fExt) 
                 os.mkdir(dirPath)
-                shutil.move(r'C:\Users\Andrey\Desktop' + "\\\\" + file, r'C:\Programming\Python' + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
+                shutil.move(f"{os.environ['USERPROFILE']}\\Desktop" + "\\\\" + file, r'C:\Programming\Python' + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
         if fExt=='doc':
             try:
-                shutil.move(r'C:\Users\Andrey\Desktop' + "\\\\" + file, docs + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
+                shutil.move(f"{os.environ['USERPROFILE']}\\Desktop" + "\\\\" + file, docs + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
             except FileNotFoundError:
                 dirPath = os.path.join(docs, fExt) 
                 os.mkdir(dirPath)
-                shutil.move(r'C:\Users\Andrey\Desktop' + "\\\\" + file, docs + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
+                shutil.move(f"{os.environ['USERPROFILE']}\\Desktop" + "\\\\" + file, docs + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
         if fExt=='jpg' or fExt=='png' or fExt=='raw':
             try:
-                shutil.move(r'C:\Users\Andrey\Desktop' + "\\\\" + file, pic + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
+                shutil.move(f"{os.environ['USERPROFILE']}\\Desktop" + "\\\\" + file, pic + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
             except FileNotFoundError:
                 dirPath = os.path.join(pic, fExt) 
                 os.mkdir(dirPath)
-                shutil.move(r'C:\Users\Andrey\Desktop' + "\\\\" + file, pic + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
-        if fExt=='mp4' or fExt=='mov' or fExt=='avi' or fExt=='mkv' or fExt=='ts' or fExt=='wmv':
+                shutil.move(f"{os.environ['USERPROFILE']}\\Desktop" + "\\\\" + file, pic + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
+        if fExt=='mpeg' or fExt=='mpg' or fExt=='avi' or fExt=='mkv':
             try:
-                shutil.move(r'C:\Users\Andrey\Desktop' + "\\\\" + file, vid + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
+                shutil.move(f"{os.environ['USERPROFILE']}\\Desktop" + "\\\\" + file, vid + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
             except FileNotFoundError:
                 dirPath = os.path.join(vid, fExt) 
                 os.mkdir(dirPath)
-                shutil.move(r'C:\Users\Andrey\Desktop' + "\\\\" + file, vid + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
+                shutil.move(f"{os.environ['USERPROFILE']}\\Desktop" + "\\\\" + file, vid + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
 tableos=PrettyTable()
 tableos.field_names=["В папку", "С раширением"]
 tableos.add_row(["Documents",".doc"])
 tableos.add_row(["Pictures",".jpg,.raw,.png"])
 tableos.add_row(["Programming",".py"])
 tableos.add_row(["Video",".mpeg, .mpg, .avi, .mkv"])
-needToMove = os.listdir(r'C:\Users\Andrey\Desktop')
+needToMove = os.listdir(f"{os.environ['USERPROFILE']}\\Desktop")
 if len(needToMove) != 0:
     movefilestrue()
     print('Сортировка прошла успешно')
