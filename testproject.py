@@ -9,15 +9,20 @@ lstrash=[]
 k=0
 k1=0
 table=PrettyTable()
-table2=PrettyTable()
 table.field_names=["Папки", "Место ввода/вывода", "Расширение"]
+tableos=PrettyTable()
+tableos.field_names=["В папку", "С раширением"]
 def moveFiles():
     needToMove = os.listdir(lstmovefrom[k1-1])
     if len(needToMove) == 0:
         return
     for file in needToMove:
-        fExt = file[file.rfind('.')+1:]
-        print(fExt)
+        k3=1
+        fExt = file[file.rfind('.')+k3:]
+        while fExt!=lstrash[k-1]:
+            k3+=1
+            fExt=file[file.rfind('.'+k3)]
+        k3=1
         try:
             shutil.move(lstmovefrom[k1-1] + "\\\\" + file, lstmoveto[k-1] + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
         except FileNotFoundError:
@@ -32,13 +37,15 @@ def movefilestrue():
     for file in needToMove:
         fExt = file[file.rfind('.')+1:]
         if fExt=='py':
+            tableos.add_row(["Programming", fExt])
             try:
-                shutil.move(f"{os.environ['USERPROFILE']}\\Desktop" + "\\\\" + file, r'C:\Programming\Python' + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
+                shutil.move(f"{os.environ['USERPROFILE']}\\Desktop" + "\\\\" + file, r'D:\Programing\Python' + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
             except FileNotFoundError:
-                dirPath = os.path.join('C:\Programming\Python', fExt) 
+                dirPath = os.path.join('D:\Programming\Python', fExt) 
                 os.mkdir(dirPath)
-                shutil.move(f"{os.environ['USERPROFILE']}\\Desktop" + "\\\\" + file, r'C:\Programming\Python' + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
-        if fExt=='doc':
+                shutil.move(f"{os.environ['USERPROFILE']}\\Desktop" + "\\\\" + file, r'D:\Programing\Python' + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
+        if fExt=='doc' or fExt=='docx' or fExt=='xls' or fExt=='xlsx' or fExt=='odt' or fExt=='ods' or fExt=='odp' or fExt=='pdf' or fExt=='rtf' or fExt=='txt':
+            tableos.add_row(["Documents", fExt])
             try:
                 shutil.move(f"{os.environ['USERPROFILE']}\\Desktop" + "\\\\" + file, docs + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
             except FileNotFoundError:
@@ -46,6 +53,7 @@ def movefilestrue():
                 os.mkdir(dirPath)
                 shutil.move(f"{os.environ['USERPROFILE']}\\Desktop" + "\\\\" + file, docs + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
         if fExt=='jpg' or fExt=='png' or fExt=='raw':
+            tableos.add_row(["Pictures",fExt])
             try:
                 shutil.move(f"{os.environ['USERPROFILE']}\\Desktop" + "\\\\" + file, pic + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
             except FileNotFoundError:
@@ -53,23 +61,18 @@ def movefilestrue():
                 os.mkdir(dirPath)
                 shutil.move(f"{os.environ['USERPROFILE']}\\Desktop" + "\\\\" + file, pic + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
         if fExt=='mpeg' or fExt=='mpg' or fExt=='avi' or fExt=='mkv':
+            tableos.add_row(["Video", fExt])
             try:
                 shutil.move(f"{os.environ['USERPROFILE']}\\Desktop" + "\\\\" + file, vid + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
             except FileNotFoundError:
                 dirPath = os.path.join(vid, fExt) 
                 os.mkdir(dirPath)
                 shutil.move(f"{os.environ['USERPROFILE']}\\Desktop" + "\\\\" + file, vid + "\\\\" + fExt + "\\\\" + file, copy_function=shutil.copy2)
-tableos=PrettyTable()
-tableos.field_names=["В папку", "С раширением"]
-tableos.add_row(["Documents",".doc"])
-tableos.add_row(["Pictures",".jpg,.raw,.png"])
-tableos.add_row(["Programming",".py"])
-tableos.add_row(["Video",".mpeg, .mpg, .avi, .mkv"])
 needToMove = os.listdir(f"{os.environ['USERPROFILE']}\\Desktop")
 if len(needToMove) != 0:
     movefilestrue()
     print('Сортировка прошла успешно')
-    print(table)
+    print(tableos)
 else:
     print('Нет файлов в корневой папке')
 while 1:
@@ -82,13 +85,12 @@ while 1:
             if insert=='moveto()':
                 print('Введите место, куда нужно переместить')
                 lstmoveto.append(input())
-                print('Введите расширение файлов, которые будут отправляться в эту папку ')
+                print('Введите расширение для файлов, которые будут отправляться в эту папку ')
                 lstrash.append(input())
                 table.add_row(['Переместить в', lstmoveto[k], lstrash[k]])  
             if insert=='movefrom()':
                 print('Введите место, откуда нужно перемещать')
                 lstmovefrom.append(input())
-                print(k1)
                 table.add_row(['Переместить из', lstmovefrom[k1], '---'])
             if insert=='exit()':
                 break
@@ -98,8 +100,7 @@ while 1:
                 k+=1
             if insert=='movefrom()': 
                 k1+=1    
-    if keyboard.is_pressed('n'):
-        print('Выход из программы')
-        break
     click.pause()
-
+    if keyboard.is_pressed('n'):
+            print('Выход из программы')
+            break
